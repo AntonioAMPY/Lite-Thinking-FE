@@ -21,6 +21,7 @@ interface Props {
   address: string;
   nit: string;
   phoneNumber: string;
+  getCompanies: () => void;
 }
 
 export default function TableRowCompanies({
@@ -29,6 +30,7 @@ export default function TableRowCompanies({
   address,
   nit,
   phoneNumber,
+  getCompanies
 }: Props) {
   const [isEditMode, toggleEditMode] = useReducer((state) => !state, false);
 
@@ -46,7 +48,7 @@ export default function TableRowCompanies({
     setIsDeleting(true);
     try {
       await deleteCompanyService(companyId);
-      await getCompaniesService();
+      await getCompanies();
     } catch (error) {
       console.log(error);
     } finally {
@@ -64,7 +66,7 @@ export default function TableRowCompanies({
   const updateCompany = async (companyId: string, formValues: any) => {
     try {
       await updateCompanyService(companyId, formValues);
-      await getCompaniesService();
+      await getCompanies();
       toggleEditMode();
     } catch (error) {
       console.log(error);

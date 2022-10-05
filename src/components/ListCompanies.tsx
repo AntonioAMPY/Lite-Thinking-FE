@@ -37,7 +37,7 @@ export default function ListCompanies() {
 
   useEffect(() => {
     getCompanies();
-  }, [companies]);
+  }, []);
 
   return (
     <Grid
@@ -71,7 +71,7 @@ export default function ListCompanies() {
             {companies.length > 0 ? (
               <Fragment>
                 {companies?.map((row) => (
-                  <TableRowCompanies key={row.id} {...row} />
+                  <TableRowCompanies key={row.id} getCompanies={getCompanies} {...row} />
                 ))}
               </Fragment>
             ) : (
