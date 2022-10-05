@@ -59,7 +59,7 @@ export default function Form() {
           alignItems="center"
         >
           <Typography variant="h4" gutterBottom mb={3} mt={5}>
-            Create a Company
+            Create Company
           </Typography>
           <Grid
             container
@@ -107,7 +107,7 @@ export default function Form() {
           </Grid>
           <Grid item mt={2}>
             <Button type="submit" variant="outlined">
-              {isLoading ? <CircularProgress /> : "Send"}
+              {isLoading ? <CircularProgress size="2em" /> : "Send"}
             </Button>
           </Grid>
           <Grid item mt={2} sx={{ a: { textDecoration: "none" } }}>

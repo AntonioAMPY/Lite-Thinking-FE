@@ -8,9 +8,9 @@ import {
   TableRow,
   Paper,
   Typography,
-  Button
+  Button,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { getCompaniesService } from "../services/company";
 import { Link } from "react-router-dom";
 import TableRowCompanies from "./TableRowCompanies";
@@ -37,7 +37,7 @@ export default function ListCompanies() {
 
   useEffect(() => {
     getCompanies();
-  }, []);
+  }, [companies]);
 
   return (
     <Grid
@@ -68,9 +68,17 @@ export default function ListCompanies() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {companies?.map((row) => (
-              <TableRowCompanies key={row.id} {...row} />
-            ))}
+            {companies.length > 0 ? (
+              <Fragment>
+                {companies?.map((row) => (
+                  <TableRowCompanies key={row.id} {...row} />
+                ))}
+              </Fragment>
+            ) : (
+              <TableRow>
+                <TableCell component="th" scope="row" align="center" colSpan={5}>No Rows</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

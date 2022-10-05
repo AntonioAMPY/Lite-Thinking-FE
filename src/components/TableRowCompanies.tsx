@@ -5,6 +5,7 @@ import {
   Stack,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { useReducer, useState } from "react";
 
@@ -30,6 +31,8 @@ export default function TableRowCompanies({
   phoneNumber,
 }: Props) {
   const [isEditMode, toggleEditMode] = useReducer((state) => !state, false);
+
+  const [isDeleting, setIsDeleting] = useState(false);
   const initialState = {
     name,
     address,
@@ -40,11 +43,14 @@ export default function TableRowCompanies({
   const [companyEdit, setCompanyEdit] = useState(initialState);
 
   const deleteCompany = async (companyId: string) => {
+    setIsDeleting(true);
     try {
       await deleteCompanyService(companyId);
       await getCompaniesService();
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -114,7 +120,7 @@ export default function TableRowCompanies({
               color="error"
               onClick={() => deleteCompany(id)}
             >
-              Delete
+              {isDeleting ? <CircularProgress size="2em" color="error" /> : "Delete"}
             </Button>
           </Stack>
         ) : (
